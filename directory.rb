@@ -1,3 +1,5 @@
+student_count = 19
+
 puts "The students of my cohort at Makers Academy"
 
 puts "Sasha Cooper"
@@ -20,3 +22,5 @@ puts "Sasha Cooper"
 puts "Nicolai DTH"
 puts "Nadav Matalon"
 puts "Fitsum Teklehaimanot"
+
+puts "Overall we have #{student_count} great students"
