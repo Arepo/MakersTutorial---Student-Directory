@@ -1,24 +1,15 @@
-students = [
-{name: "Roi Driscoll", cohort: :May},
-{name: "James Whyte", cohort: :May},
-{name: "Margherita Serino", cohort: :May},
-{name: "Vaidas Mykolaitis", cohort: :May},
-{name: "Johann Bornman", cohort: :May},
-{name: "Kate Hamilton", cohort: :May},
-{name: "James Keap", cohort: :May},
-{name: "Nic Yeeles", cohort: :May},
-{name: "Julie Walker", cohort: :May},
-{name: "Will Allen", cohort: :May},
-{name: "Julia Tan", cohort: :May},
-{name: "Federico Maffei", cohort: :May},
-{name: "Jamie Patel", cohort: :May},
-{name: "Faezrah Rizalman", cohort: :May},
-{name: "Josh Fail-Broon", cohort: :May},
-{name: "Sasha Cooper", cohort: :May},
-{name: "Nicolai DTH", cohort: :May},
-{name: "Nadav Matalon", cohort: :May},
-{name: "Fitsum Teklehaimanot", cohort: :May}
-]
+def input_students
+	puts "Please enter the names of the students"
+	puts "To finish, just hit return twice"
+	students = []
+	name = gets.chomp
+	while !name.empty? do
+		students << {name: name, cohort: :May}
+		puts "Now we have #{students.length} students"
+		name = gets.chomp
+	end
+	students
+end
 
 def print_header
   puts "The students of my cohort at Makers Academy"
@@ -35,6 +26,7 @@ def print_footer(names)
 	puts "Overall, we have #{names.length} great students"
 end
 
+students = input_students
 print_header
 print(students)
 print_footer(students)
