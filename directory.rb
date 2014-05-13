@@ -1,34 +1,33 @@
-
-
-student_count = 19
-students = ["Roi Driscoll",
-"James Whyte",
-"Margherita Serino",
-"Vaidas Mykolaitis",
-"Johann Bornman",
-"Kate Hamilton",
-"James Keap",
-"Nic Yeeles",
-"Julie Walker",
-"Will Allen",
-"Julia Tan",
-"Federico Maffei",
-"Jamie Patel",
-"Faezrah Rizalman",
-"Josh Fail-Broon",
-"Sasha Cooper",
-"Nicolai DTH",
-"Nadav Matalon",
-"Fitsum Teklehaimanot"]
+students = [
+{name: "Roi Driscoll", cohort: :May},
+{name: "James Whyte", cohort: :May},
+{name: "Margherita Serino", cohort: :May},
+{name: "Vaidas Mykolaitis", cohort: :May},
+{name: "Johann Bornman", cohort: :May},
+{name: "Kate Hamilton", cohort: :May},
+{name: "James Keap", cohort: :May},
+{name: "Nic Yeeles", cohort: :May},
+{name: "Julie Walker", cohort: :May},
+{name: "Will Allen", cohort: :May},
+{name: "Julia Tan", cohort: :May},
+{name: "Federico Maffei", cohort: :May},
+{name: "Jamie Patel", cohort: :May},
+{name: "Faezrah Rizalman", cohort: :May},
+{name: "Josh Fail-Broon", cohort: :May},
+{name: "Sasha Cooper", cohort: :May},
+{name: "Nicolai DTH", cohort: :May},
+{name: "Nadav Matalon", cohort: :May},
+{name: "Fitsum Teklehaimanot", cohort: :May}
+]
 
 def print_header
   puts "The students of my cohort at Makers Academy"
   puts "-------------"
 end
 
-def print(names)
-	names.each do |name|
-		puts name
+def print(students)
+	students.each do |student|
+		puts "#{student[:name]} (#{student[:cohort]} cohort)"
 	end
 end
 
