@@ -1,26 +1,41 @@
+
+
 student_count = 19
+students = ["Roi Driscoll",
+"James Whyte",
+"Margherita Serino",
+"Vaidas Mykolaitis",
+"Johann Bornman",
+"Kate Hamilton",
+"James Keap",
+"Nic Yeeles",
+"Julie Walker",
+"Will Allen",
+"Julia Tan",
+"Federico Maffei",
+"Jamie Patel",
+"Faezrah Rizalman",
+"Josh Fail-Broon",
+"Sasha Cooper",
+"Nicolai DTH",
+"Nadav Matalon",
+"Fitsum Teklehaimanot"]
 
-puts "The students of my cohort at Makers Academy"
+def print_header
+  puts "The students of my cohort at Makers Academy"
+  puts "-------------"
+end
 
-puts "Sasha Cooper"
-puts "Roi Driscoll"
-puts "James Whyte"
-puts "Margherita Serino"
-puts "Vaidas Mykolaitis"
-puts "Johann Bornman"
-puts "Kate Hamilton"
-puts "James Keap"
-puts "Nic Yeeles"
-puts "Julie Walker"
-puts "Will Allen"
-puts "Julia Tan"
-puts "Federico Maffei"
-puts "Jamie Patel"
-puts "Faezrah Rizalman"
-puts "Josh Fail-Broon"
-puts "Sasha Cooper"
-puts "Nicolai DTH"
-puts "Nadav Matalon"
-puts "Fitsum Teklehaimanot"
+def print(names)
+	names.each do |name|
+		puts name
+	end
+end
 
-puts "Overall we have #{student_count} great students"
+def print_footer(names)
+	puts "Overall, we have #{names.length} great students"
+end
+
+print_header
+print(students)
+print_footer(students)
