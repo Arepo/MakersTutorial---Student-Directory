@@ -35,7 +35,7 @@ end
 def process(selection)
 	case selection
 	when "1"
-		students = input_students
+		input_students
 	when "2"
 		show_students
 	when "9"
@@ -68,18 +68,14 @@ def input_students
 		cohort = :May if cohort == ""
 		cohort = cohort.to_sym
 		@students << {name: name, cohort: cohort}
-		if @students.length == 1
-			puts "Now we have #{@students.length} student. Any more students?"
-		else
-			puts "Now we have #{@students.length} students. Any more students?"
-		end
+		puts "Now we have #{@students.length} #{student_s}. Any more students?"
 		name = gets.chomp
 	end
 	@students
 end
 
 def print_header
-  puts "The students of my cohort at Makers Academy"
+  puts "The #{student_s} of my cohort at Makers Academy"
   puts "-------------"
 end
 
@@ -96,12 +92,18 @@ def print_students_list
 end
 
 def print_footer(names)
-	if names.length == 1
-		puts "Overall, we have #{names.length} great student"
-	else 
-		puts "Overall, we have #{names.length} great students"
+	puts "Overall, we have #{names.length} great #{student_s}"
+end
+
+
+def student_s
+	if @students.length == 1
+		"student"
+	else
+		"students"
 	end
 end
+
 
 
 interactive_menu
