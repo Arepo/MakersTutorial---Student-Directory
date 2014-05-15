@@ -27,7 +27,7 @@ def print_menu
 end
 
 def show_students
-	print_header
+	print_header if @students.length > 0
 	print_students_list
 	print_footer(@students)
 end
@@ -43,6 +43,7 @@ def process(selection)
 		exit
 	else 
 		puts "I don't know what you meant, try again"
+		p "you wrote #{selection}"
 	end
 end
 
@@ -50,7 +51,7 @@ def interactive_menu
 	@students = []
 	loop do
 		print_menu
-		process(gets.chomp)
+		process(gets.chomp) # chomp could be replaced by gsub("\n", "")
 	end
 end
 
