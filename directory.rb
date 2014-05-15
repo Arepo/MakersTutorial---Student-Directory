@@ -10,8 +10,8 @@ def save_students
 	file.close
 end
 
-def load_students
-	file = File.open("students.csv", "r")
+def load_students(filename = "students.csv")
+	file = File.open(filename, "r")
 	file.readlines.each do |line|
 		name, cohort = line.chomp.split(',')
 		@students << {name: name, cohort: cohort.to_sym}
@@ -19,7 +19,17 @@ def load_students
 	file.close
 end
 
-
+def try_load_students
+	filename = ARGV.first
+	return if filename.nil?
+	if File.exists?(filename)
+		load_students(filename)
+		puts "Loaded #{@students.length} from #{filename}"
+	else
+		puts "Sorry, #{filename} doesn't exist."
+		exit
+	end
+end
 
 # def save_students
 # 	file = File.open("students.csv", "w")
@@ -70,26 +80,26 @@ def interactive_menu
 	@students = []
 	loop do
 		print_menu
-		process(gets.chomp) # chomp could be replaced by gsub("\n", "")
+		process(STDIN.gets.chomp) # chomp could be replaced by gsub("\n", "")
 	end
 end
 
 def input_students
 	puts "Please enter the names of the students"
 	puts "To finish, just hit enter on the student's name"
-	name = gets.chomp
+	name = STDIN.gets.chomp
 	while !name.empty? do
 		puts "Now enter their cohort"
-		cohort = gets.chomp
+		cohort = STDIN.gets.chomp
 		while !(Date::MONTHNAMES).include? cohort.capitalize do
 			puts "Did you get the month right? Please reenter:"
-			cohort = gets.chomp
+			cohort = STDIN.gets.chomp
 		end
 		cohort = :May if cohort == ""
 		cohort = cohort.to_sym
 		@students << {name: name, cohort: cohort}
 		puts "Now we have #{@students.length} #{student_s}. Any more students?"
-		name = gets.chomp
+		name = STDIN.gets.chomp
 	end
 	@students
 end
