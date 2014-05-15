@@ -56,7 +56,7 @@ def show_students
 	print_footer(@students)
 end
 
-def process(selection)
+def process_input(selection)
 	case selection
 	when "1"
 		input_students
@@ -80,7 +80,7 @@ def interactive_menu
 	@students = []
 	loop do
 		print_menu
-		process(STDIN.gets.chomp) # chomp could be replaced by gsub("\n", "")
+		process_input(STDIN.gets.chomp) # chomp could be replaced by gsub("\n", "")
 	end
 end
 
@@ -98,14 +98,13 @@ def input_students
 		cohort = :May if cohort == ""
 		cohort = cohort.to_sym
 		@students << {name: name, cohort: cohort}
-		puts "Now we have #{@students.length} #{student_s}. Any more students?"
+		puts "Now we have #{@students.length} student#{optional_plural}. Any more students?"
 		name = STDIN.gets.chomp
 	end
-	@students
 end
 
 def print_header
-  puts "The #{student_s} of my cohort at Makers Academy"
+  puts "The student#{optional_plural} of my cohort at Makers Academy"
   puts "-------------"
 end
 
@@ -122,18 +121,14 @@ def print_students_list
 end
 
 def print_footer(names)
-	puts "Overall, we have #{names.length} great #{student_s}"
+	puts "Overall, we have #{names.length} great student#{optional_plural}"
 end
 
 
-def student_s
-	if @students.length == 1
-		"student"
-	else
-		"students"
+def optional_plural
+	if @students.length != 1
+		"s"
 	end
 end
-
-
 
 interactive_menu
