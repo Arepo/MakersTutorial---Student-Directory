@@ -1,14 +1,14 @@
 @students = []
 require 'date'
 
-def save_students
-	file = File.open("students.csv", "w")
-	@students.each do |student|
-		csv_line = "#{student[:name]}, #{student[:cohort]}"
-		file.puts csv_line
-	end
-	file.close
-end
+# def save_students
+# 	file = File.open("students.csv", "w")
+# 	@students.each do |student|
+# 		csv_line = "#{student[:name]}, #{student[:cohort]}"
+# 		file.puts csv_line
+# 	end
+# 	file.close
+# end
 
 # def save_students
 # 	file = File.open("students.csv", "w")
@@ -39,7 +39,7 @@ def process(selection)
 	when "2"
 		show_students
 	when "9"
-		save_students
+		# save_students
 		exit
 	else 
 		puts "I don't know what you meant, try again"
@@ -68,7 +68,11 @@ def input_students
 		cohort = :May if cohort == ""
 		cohort = cohort.to_sym
 		@students << {name: name, cohort: cohort}
-		puts "Now we have #{@students.length} students"
+		if @students.length == 1
+			puts "Now we have #{@students.length} student. Any more students?"
+		else
+			puts "Now we have #{@students.length} students. Any more students?"
+		end
 		name = gets.chomp
 	end
 	@students
@@ -80,15 +84,24 @@ def print_header
 end
 
 def print_students_list
+	@students.each do |student|
+		student.map {}
+	end
+
 	@students.each_with_index do |student, index|
-		if student[:name].length < 12
-			puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
-		end
+	 	if student[:name].length < 12
+	 		puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
+	 	end
 	end
 end
 
 def print_footer(names)
-	puts "Overall, we have #{names.length} great students"
+	if names.length == 1
+		puts "Overall, we have #{names.length} great student"
+	else 
+		puts "Overall, we have #{names.length} great students"
+	end
 end
+
 
 interactive_menu
