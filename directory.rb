@@ -1,14 +1,14 @@
 @students = []
 require 'date'
 
-# def save_students
-# 	file = File.open("students.csv", "w")
-# 	@students.each do |student|
-# 		csv_line = "#{student[:name]}, #{student[:cohort]}"
-# 		file.puts csv_line
-# 	end
-# 	file.close
-# end
+def save_students
+	file = File.open("students.csv", "w")
+	@students.each do |student|
+		csv_line = "#{student[:name]}, #{student[:cohort]}"
+		file.puts csv_line
+	end
+	file.close
+end
 
 # def save_students
 # 	file = File.open("students.csv", "w")
@@ -39,7 +39,7 @@ def process(selection)
 	when "2"
 		show_students
 	when "9"
-		# save_students
+		save_students
 		exit
 	else 
 		puts "I don't know what you meant, try again"
