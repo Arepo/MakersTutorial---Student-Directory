@@ -62,6 +62,10 @@ def input_students
 	puts "Please enter the names of the students"
 	puts "To finish, just hit enter on the student's name"
 	name = STDIN.gets.chomp
+	input_cohort(name)
+end
+
+def input_cohort(name)
 	while !name.empty? do
 		puts "Now enter their cohort"
 		cohort = STDIN.gets.chomp
@@ -118,6 +122,8 @@ def check_month(cohort)
 			cohort = STDIN.gets.chomp
 	end
 end
+
+
 
 try_load_students
 interactive_menu
