@@ -1,24 +1,6 @@
 @students = []
 require 'date'
 
-def save_students
-	file = File.open("students.csv", "w")
-	@students.each do |student|
-		csv_line = "#{student[:name]}, #{student[:cohort]}"
-		file.puts csv_line
-	end
-	file.close
-end
-
-def load_students(filename = "students.csv")
-	file = File.open(filename, "r")
-	file.readlines.each do |line|
-		name, cohort = line.chomp.split(',')
-		@students << {name: name, cohort: cohort.to_sym}
-	end
-	file.close
-end
-
 def try_load_students
 	filename = ARGV.first
 	return if filename.nil?
@@ -31,15 +13,21 @@ def try_load_students
 	end
 end
 
-# def save_students
-# 	file = File.open("students.csv", "w")
-# 	@students.each do |student|
-# 		student_data = [student[:name], student[:cohort]]
-# 		csv_line = student_data.join(",")
-# 		file.puts csv_line
-# 	end
-# 	file.close
-# end
+def load_students(filename = "students.csv")
+	file = File.open(filename, "r")
+	file.readlines.each do |line|
+		name, cohort = line.chomp.split(',')
+		@students << {name: name, cohort: cohort.to_sym}
+	end
+	file.close
+end
+
+def interactive_menu
+	loop do
+		print_menu
+		process_input(STDIN.gets.chomp) # chomp could be replaced by gsub("\n", "")
+	end
+end
 
 def print_menu
 	puts ""
@@ -48,12 +36,6 @@ def print_menu
 	puts "3. Save the students list to students.csv"
 	puts "4. Load the list from students.csv"
 	puts "9. Exit"
-end
-
-def show_students
-	print_header if @students.length > 0
-	print_students_list
-	print_footer(@students)
 end
 
 def process_input(selection)
@@ -76,14 +58,6 @@ def process_input(selection)
 	end
 end
 
-def interactive_menu
-	@students = []
-	loop do
-		print_menu
-		process_input(STDIN.gets.chomp) # chomp could be replaced by gsub("\n", "")
-	end
-end
-
 def input_students
 	puts "Please enter the names of the students"
 	puts "To finish, just hit enter on the student's name"
@@ -91,28 +65,35 @@ def input_students
 	while !name.empty? do
 		puts "Now enter their cohort"
 		cohort = STDIN.gets.chomp
-		while !(Date::MONTHNAMES).include? cohort.capitalize do
-			puts "Did you get the month right? Please reenter:"
-			cohort = STDIN.gets.chomp
-		end
+		check_month(cohort)
 		cohort = :May if cohort == ""
 		cohort = cohort.to_sym
 		@students << {name: name, cohort: cohort}
-		puts "Now we have #{@students.length} student#{optional_plural}. Any more students?"
+		puts "Now we have #{@students.length} student#{optional_plural}."
 		name = STDIN.gets.chomp
 	end
 end
 
+def show_students
+	print_header if @students.length > 0
+	print_students_list
+	print_footer
+end
+
+def save_students
+	file = File.open("students.csv", "w")
+	@students.each do |student|
+		file.puts [student[:name], student[:cohort]].join(",")
+	end
+	file.close
+end
+
 def print_header
-  puts "The student#{optional_plural} of my cohort at Makers Academy"
+  puts "The student#{optional_plural} at Makers Academy"
   puts "-------------"
 end
 
 def print_students_list
-	@students.each do |student|
-		student.map {}
-	end
-
 	@students.each_with_index do |student, index|
 	 	if student[:name].length < 12
 	 		puts "#{index + 1}. #{student[:name]} (#{student[:cohort]} cohort)"
@@ -120,8 +101,8 @@ def print_students_list
 	end
 end
 
-def print_footer(names)
-	puts "Overall, we have #{names.length} great student#{optional_plural}"
+def print_footer
+	puts "Overall, we have #{@students.length} great student#{optional_plural}"
 end
 
 
@@ -131,4 +112,12 @@ def optional_plural
 	end
 end
 
+def check_month(cohort)
+	while !(Date::MONTHNAMES).include? cohort.capitalize do
+			puts "Did you get the month right? Please reenter:"
+			cohort = STDIN.gets.chomp
+	end
+end
+
+try_load_students
 interactive_menu
